@@ -1,6 +1,8 @@
 package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
+import jm.task.core.jdbc.service.UserServiceImpl;
+import jm.task.core.jdbc.util.Util;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -48,12 +50,35 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void saveUser(String name, String lastName, byte age) {
+        User user = new User(name, lastName, age);
+        Transaction transaction = null;
+        try (Session session = Util.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.save(user);
+            transaction.commit();
+            session.close();
+        } catch (Exception e) {
+//            if (transaction != null) {
+//                transaction.rollback();
+//            }
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public void removeUserById(long id) {
+        Session session = Util.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("delete User where id = :ID");
+        query.setParameter("ID", id);
+        query.executeUpdate();
+//        Transaction transaction = session.beginTransaction();
+//        User user = session.load(User.class, id);
 
+//        session.delete(user);
+        transaction.commit();
+        session.close();
     }
 
     @Override

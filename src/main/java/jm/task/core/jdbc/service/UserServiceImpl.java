@@ -24,10 +24,10 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<User> getAllUsers() {
-        return null;
+        return userDaoHibernate.getAllUsers();
     }
 
     public void cleanUsersTable() {
-
+        userDaoHibernate.cleanUsersTable();
     }
 }

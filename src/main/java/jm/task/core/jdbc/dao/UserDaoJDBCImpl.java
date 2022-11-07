@@ -1,6 +1,5 @@
 package jm.task.core.jdbc.dao;
 
-import com.mysql.cj.x.protobuf.MysqlxPrepare;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 
@@ -18,11 +17,12 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
 //        String sqlCommand1 = "SELECT count(*) FROM information_schema.tables WHERE table_name = ? LIMIT 1";
         try (Connection connection = getConnect();
              Statement stm = connection.createStatement()) {
-            String sqlCommand2 = "create table if not exists users (`id` INT NOT NULL AUTO_INCREMENT,\n" +
-                    "  `name` VARCHAR(45) NULL,\n" +
-                    "  `lastname` VARCHAR(45) NULL,\n" +
-                    "  `age` INT NULL,\n" +
-                    "  PRIMARY KEY (`id`))";
+            String sqlCommand2 = """
+                    create table if not exists users (`id` INT NOT NULL AUTO_INCREMENT,
+                      `name` VARCHAR(45) NULL,
+                      `lastname` VARCHAR(45) NULL,
+                      `age` INT NULL,
+                      PRIMARY KEY (`id`))""";
             stm.executeUpdate(sqlCommand2);
 
         } catch (SQLException e) {
@@ -60,7 +60,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
     public void removeUserById(long id) {
         String sqlCommand = "delete from users where id=?";
         try (Connection connection = getConnect();
-             PreparedStatement prepStm = connection.prepareStatement(sqlCommand);
+             PreparedStatement prepStm = connection.prepareStatement(sqlCommand)
 
         ) {
             prepStm.setLong(1, id);
@@ -75,7 +75,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
             String sqlCommand = "select id, name, lastname, age from users";
             try (Connection connection = getConnect();
                  Statement stm = connection.createStatement();
-                 ResultSet rs = stm.executeQuery(sqlCommand);
+                 ResultSet rs = stm.executeQuery(sqlCommand)
             ) {
                 while (rs.next()) {
                     User user = new User();
@@ -93,7 +93,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
         public void cleanUsersTable () {
 
             try (Connection connection = getConnect();
-                 Statement stm = connection.createStatement();
+                 Statement stm = connection.createStatement()
 
             ) {
                 String sqlCommand = "delete from users";

@@ -9,8 +9,6 @@ import org.hibernate.query.Query;
 
 import java.util.List;
 
-import static jm.task.core.jdbc.util.Util.getSessionFactory;
-
 public class UserDaoHibernateImpl implements UserDao {
     public UserDaoHibernateImpl() {
 
@@ -18,7 +16,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void createUsersTable() {
-        Session session = getSessionFactory().openSession();
+        Session session = Util.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         String sql = "create table if not exists users (id BIGINT NOT NULL AUTO_INCREMENT," +
                 "name VARCHAR(45) NULL," +
@@ -33,7 +31,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void dropUsersTable() {
-        Session session = getSessionFactory().openSession();
+        Session session = Util.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
         String sql = "DROP TABLE IF EXISTS users";

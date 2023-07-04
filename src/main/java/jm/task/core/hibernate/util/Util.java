@@ -20,14 +20,14 @@ public class Util {
 
                 // settings here instead of hibernate.cfg.xml
                 Properties settings = new Properties();
-                settings.put(Environment.DRIVER, "com.mysql.cj.hibernate.Driver");
-                settings.put(Environment.URL, "hibernate:mysql://localhost:3306/testdatabase");
-                settings.put(Environment.USER, "test");
-                settings.put(Environment.PASS, "DkVsSA[<w92");
-                settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQLDialect");
-                settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-
-                settings.put(Environment.SHOW_SQL, "true");
+                settings.load(Util.class.getClassLoader().getResourceAsStream("hibernate.properties"));
+//                settings.put(Environment.DRIVER, "com.mysql.cj.hibernate.Driver");
+//                settings.put(Environment.URL, "hibernate:mysql://localhost:3306/hibernate_db");
+//                settings.put(Environment.USER, "hibernate_user");
+//                settings.put(Environment.PASS, "password");
+//                settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQLDialect");
+//                settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
+//                settings.put(Environment.SHOW_SQL, "true");
 
                 configuration.setProperties(settings);
                 configuration.addAnnotatedClass(User.class);

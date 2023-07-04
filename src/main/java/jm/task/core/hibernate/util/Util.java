@@ -1,7 +1,7 @@
-package jm.task.core.jdbc.util;
+package jm.task.core.hibernate.util;
 
 
-import jm.task.core.jdbc.model.User;
+import jm.task.core.hibernate.model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -20,8 +20,8 @@ public class Util {
 
                 // settings here instead of hibernate.cfg.xml
                 Properties settings = new Properties();
-                settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-                settings.put(Environment.URL, "jdbc:mysql://localhost:3306/testdatabase");
+                settings.put(Environment.DRIVER, "com.mysql.cj.hibernate.Driver");
+                settings.put(Environment.URL, "hibernate:mysql://localhost:3306/testdatabase");
                 settings.put(Environment.USER, "test");
                 settings.put(Environment.PASS, "DkVsSA[<w92");
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQLDialect");
